@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint-staged": "lint-staged"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +14,8 @@
     "@types/node": "^20.8.10",
     "eslint-config-standard-with-typescript": "^39.1.1",
     "git-commit-msg-linter": "^5.0.4",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.0.2",
     "typescript": "^5.2.2"
   }
 }

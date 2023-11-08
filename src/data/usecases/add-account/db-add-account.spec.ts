@@ -1,5 +1,5 @@
 import { DbAddAccount } from './db-add-account'
-import { type Encrypter } from '../../protocols'
+import { type Encrypter } from './db-add-account-protocols'
 
 describe('DbAddAccount Usecase', () => {
   const makeEncrypter = (): Encrypter => {

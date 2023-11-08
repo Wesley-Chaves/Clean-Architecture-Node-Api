@@ -1,9 +1,9 @@
 import { type IAddAccount, type IEmailValidator } from './signup-protocols'
-import { type HttpRequest, type HttpResponse } from '../../protocols'
+import { type HttpRequest, type HttpResponse, type IController } from '../../protocols'
 import { MissingParamError, InvalidParamError } from '../../errors'
 import { badRequest, serverError, sucess } from '../../helpers/http-helper'
 
-export class SignUpController {
+export class SignUpController implements IController {
   private readonly emailValidator: IEmailValidator
   private readonly addAccount: IAddAccount
 

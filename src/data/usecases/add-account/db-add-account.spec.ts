@@ -11,9 +11,22 @@ describe('DbAddAccount Usecase', () => {
     return new EncrypterStub()
   }
 
-  test('Should call Encrypter with correct value', async () => {
+  interface SutTypes {
+    sut: DbAddAccount
+    encrypterStub: Encrypter
+  }
+
+  const makeSut = (): SutTypes => {
     const encrypterStub = makeEncrypter()
     const sut = new DbAddAccount(encrypterStub)
+    return {
+      encrypterStub,
+      sut
+    }
+  }
+
+  test('Should call Encrypter with correct value', async () => {
+    const { sut, encrypterStub } = makeSut()
     const encryptSpy = jest.spyOn(encrypterStub, 'encrypt')
     const accountReceived = {
       name: 'any_name',

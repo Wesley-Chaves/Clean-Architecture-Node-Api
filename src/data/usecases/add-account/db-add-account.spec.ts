@@ -2,6 +2,12 @@ import { DbAddAccount } from './db-add-account'
 import { type IAccountModel, type IAddAccount, type IAddAccountModel, type Encrypter, type AddAccountRepository } from './db-add-account-protocols'
 
 describe('DbAddAccount Usecase', () => {
+  interface SutTypes {
+    sut: DbAddAccount
+    encrypterStub: Encrypter
+    addAccountRepositoryStub: AddAccountRepository
+  }
+
   const makeEncrypter = (): Encrypter => {
     class EncrypterStub implements Encrypter {
       async encrypt (value: string): Promise<string> {
@@ -11,13 +17,7 @@ describe('DbAddAccount Usecase', () => {
     return new EncrypterStub()
   }
 
-  interface SutTypes {
-    sut: DbAddAccount
-    encrypterStub: Encrypter
-    addAccountRepositoryStub: AddAccountRepository
-  }
-
-  const makeSut = (): SutTypes => {
+  const makeAddAccountRepository = (): AddAccountRepository => {
     class AddAccountRepositoryStub implements IAddAccount {
       async add (accountData: IAddAccountModel): Promise<IAccountModel> {
         return await new Promise((resolve) => {
@@ -30,7 +30,11 @@ describe('DbAddAccount Usecase', () => {
         })
       }
     }
-    const addAccountRepositoryStub = new AddAccountRepositoryStub()
+    return new AddAccountRepositoryStub()
+  }
+
+  const makeSut = (): SutTypes => {
+    const addAccountRepositoryStub = makeAddAccountRepository()
     const encrypterStub = makeEncrypter()
     const sut = new DbAddAccount(encrypterStub, addAccountRepositoryStub)
     return {

@@ -93,4 +93,24 @@ describe('DbAddAccount Usecase', () => {
     const treatedAccount = { ...accountReceived, password: 'hashed_value' }
     expect(addAccountRepositoryStubSpy).toHaveBeenCalledWith(treatedAccount)
   })
+
+  test('Should return an account on sucess', async () => {
+    const { sut } = makeSut()
+
+    const accountReceived = {
+      name: 'any_name',
+      email: 'any_email@mail.com',
+      password: 'any_password'
+    }
+
+    const dataResult = {
+      id: 'valid_id',
+      name: 'any_name',
+      email: 'any_email@mail.com',
+      password: 'hashed_value'
+    }
+
+    const account = await sut.add(accountReceived)
+    expect(account).toEqual(dataResult)
+  })
 })

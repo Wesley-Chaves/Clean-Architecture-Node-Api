@@ -4,7 +4,7 @@ export const MongoHelper = {
   client: null as MongoClient,
 
   async connect (url: string): Promise<void> {
-    this.client = new MongoClient('mongodb://localhost:27017')
+    this.client = new MongoClient(url)
     await this.client.connect()
   },
 
@@ -16,8 +16,8 @@ export const MongoHelper = {
     return this.client.db().collection(name)
   },
 
-  map (dataFromSearchDb: any): any {
-    const { _id, ...obj } = dataFromSearchDb
+  map (data: any): any {
+    const { _id, ...obj } = data
     return Object.assign({}, { id: _id }, obj)
   }
 }
